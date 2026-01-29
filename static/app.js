@@ -14,6 +14,7 @@ const els = {
   outputRender: document.getElementById("outputRender"),
   autoToggle: document.getElementById("autoToggle"),
   swapBtn: document.getElementById("swapBtn"),
+  focusBtn: document.getElementById("focusBtn"),
   translateBtn: document.getElementById("translateBtn"),
   copyBtn: document.getElementById("copyBtn"),
   clearBtn: document.getElementById("clearBtn"),
@@ -22,6 +23,8 @@ const els = {
   fontSize: document.getElementById("fontSize"),
   historyList: document.getElementById("historyList"),
   clearHistory: document.getElementById("clearHistory"),
+  divider: document.getElementById("divider"),
+  panels: document.getElementById("panels"),
   charCount: document.getElementById("charCount"),
   errorMsg: document.getElementById("errorMsg"),
   cachedBadge: document.getElementById("cachedBadge"),
@@ -231,6 +234,44 @@ function escapeHtml(text) {
   return text.replace(/[&<>]/g, (ch) => map[ch]);
 }
 
+
+function toggleFocus() {
+  document.body.classList.toggle("focus-output");
+}
+
+function initDivider() {
+  const divider = els.divider;
+  const panels = els.panels;
+  if (!divider || !panels) return;
+
+  let dragging = false;
+  const onMove = (e) => {
+    if (!dragging) return;
+    const rect = panels.getBoundingClientRect();
+    const min = rect.width * 0.2;
+    const max = rect.width * 0.8;
+    let x = e.clientX - rect.left;
+    x = Math.max(min, Math.min(max, x));
+    const pct = (x / rect.width) * 100;
+    panels.style.setProperty("--input-width", `${pct}%`);
+  };
+
+  const stop = () => {
+    if (!dragging) return;
+    dragging = false;
+    panels.classList.remove("dragging");
+    document.removeEventListener("mousemove", onMove);
+    document.removeEventListener("mouseup", stop);
+  };
+
+  divider.addEventListener("mousedown", () => {
+    dragging = true;
+    panels.classList.add("dragging");
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseup", stop);
+  });
+}
+
 function updateFontSize() {
   const size = `${els.fontSize.value}px`;
   document.documentElement.style.setProperty("--font-size", size);
@@ -244,6 +285,9 @@ els.autoToggle.addEventListener("change", (e) => {
   if (state.auto) translate();
 });
 els.swapBtn.addEventListener("click", swapLanguages);
+if (els.focusBtn) {
+  els.focusBtn.addEventListener("click", toggleFocus);
+}
 els.translateBtn.addEventListener("click", translate);
 els.copyBtn.addEventListener("click", copyOutput);
 els.clearBtn.addEventListener("click", clearInput);
@@ -257,4 +301,5 @@ els.clearHistory.addEventListener("click", () => {
 
 updateFontSize();
 updateCharCount();
+initDivider();
 loadLanguages().then(renderHistory);
