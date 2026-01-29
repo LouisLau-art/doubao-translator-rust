@@ -23,6 +23,8 @@ const els = {
   fontSize: document.getElementById("fontSize"),
   historyList: document.getElementById("historyList"),
   clearHistory: document.getElementById("clearHistory"),
+  toggleHistory: document.getElementById("toggleHistory"),
+  historyPanel: document.getElementById("historyPanel"),
   divider: document.getElementById("divider"),
   panels: document.getElementById("panels"),
   charCount: document.getElementById("charCount"),
@@ -239,6 +241,15 @@ function toggleFocus() {
   document.body.classList.toggle("focus-output");
 }
 
+
+function toggleHistoryPanel() {
+  if (!els.historyPanel) return;
+  els.historyPanel.classList.toggle("open");
+  if (els.toggleHistory) {
+    els.toggleHistory.textContent = els.historyPanel.classList.contains("open") ? "收起" : "展开";
+  }
+}
+
 function initDivider() {
   const divider = els.divider;
   const panels = els.panels;
@@ -294,6 +305,10 @@ els.clearBtn.addEventListener("click", clearInput);
 els.pasteBtn.addEventListener("click", pasteText);
 els.clearOutput.addEventListener("click", clearOutput);
 els.fontSize.addEventListener("input", updateFontSize);
+if (els.toggleHistory) {
+  els.toggleHistory.addEventListener("click", toggleHistoryPanel);
+}
+
 els.clearHistory.addEventListener("click", () => {
   localStorage.removeItem(state.historyKey);
   renderHistory();
@@ -302,4 +317,7 @@ els.clearHistory.addEventListener("click", () => {
 updateFontSize();
 updateCharCount();
 initDivider();
+if (els.historyPanel) {
+  els.historyPanel.classList.add("open");
+}
 loadLanguages().then(renderHistory);

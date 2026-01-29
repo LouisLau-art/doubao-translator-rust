@@ -80,10 +80,13 @@
       </div>
     </section>
 
-    <section class="history">
+    <section class="history" id="historyPanel">
       <div class="panel-header">
         <span>翻译历史</span>
-        <button id="clearHistory" class="ghost">清空历史</button>
+        <div class="history-actions">
+          <button id="toggleHistory" class="ghost">收起</button>
+          <button id="clearHistory" class="ghost">清空历史</button>
+        </div>
       </div>
       <div id="historyList" class="history-list"></div>
     </section>

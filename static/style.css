@@ -249,3 +249,41 @@ textarea {
 .focus-output .output-panel {
   flex-basis: 78%;
 }
+
+.history-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.history {
+  position: fixed;
+  left: 24px;
+  right: 24px;
+  bottom: 16px;
+  max-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(calc(100% - 46px));
+  transition: transform 0.2s ease;
+  z-index: 20;
+}
+
+.history.open {
+  transform: translateY(0);
+}
+
+.history-list {
+  overflow-y: auto;
+}
+
+.app {
+  padding-bottom: 80px;
+}
+
+@media (max-width: 720px) {
+  .history {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+  }
+}
