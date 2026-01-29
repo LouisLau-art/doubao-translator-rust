@@ -160,6 +160,7 @@ input[type="range"] {
 }
 
 textarea {
+  font-family: sans-serif;
   flex: 1;
   border: none;
   background: transparent;
