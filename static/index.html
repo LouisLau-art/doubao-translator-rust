@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Doubao Translator (Rust)</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+      },
+      startup: { typeset: false }
+    };
+  </script>
+  <script src="/libs/marked.min.js"></script>
+  <script src="/libs/mathjax/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div>
+        <h1>Doubao Translator</h1>
+        <p>Rust backend · 极简 · 低内存</p>
+      </div>
+      <div class="status">
+        <span id="cachedBadge" class="badge hidden">缓存命中</span>
+        <span id="loadingBadge" class="badge loading hidden">翻译中...</span>
+      </div>
+    </header>
+
+    <section class="controls">
+      <div class="control">
+        <label for="sourceLang">源语言</label>
+        <select id="sourceLang"></select>
+      </div>
+      <div class="control">
+        <label for="targetLang">目标语言</label>
+        <select id="targetLang"></select>
+      </div>
+      <div class="control">
+        <label for="fontSize">字体大小</label>
+        <input id="fontSize" type="range" min="12" max="26" value="16" />
+      </div>
+      <div class="control inline">
+        <label class="toggle">
+          <input id="autoToggle" type="checkbox" checked />
+          <span>自动翻译</span>
+        </label>
+        <button id="swapBtn" class="ghost">⇄ 交换</button>
+        <button id="translateBtn" class="ghost">立即翻译</button>
+      </div>
+    </section>
+
+    <section class="panels">
+      <div class="panel">
+        <div class="panel-header">
+          <span>输入</span>
+          <span id="charCount" class="muted">0 / 5000</span>
+        </div>
+        <textarea id="inputText" placeholder="输入或粘贴文本（支持 Markdown / LaTeX）..."></textarea>
+        <div class="panel-actions">
+          <button id="pasteBtn" class="ghost">粘贴</button>
+          <button id="clearBtn" class="ghost">清空</button>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          <span>翻译结果</span>
+          <span id="errorMsg" class="error hidden"></span>
+        </div>
+        <div id="outputRender" class="result-area"></div>
+        <div class="panel-actions">
+          <button id="copyBtn" class="ghost">复制</button>
+          <button id="clearOutput" class="ghost">清空</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="history">
+      <div class="panel-header">
+        <span>翻译历史</span>
+        <button id="clearHistory" class="ghost">清空历史</button>
+      </div>
+      <div id="historyList" class="history-list"></div>
+    </section>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

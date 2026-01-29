@@ -1,0 +1,22 @@
+[Unit]
+Description=Doubao Translator (Rust)
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=nobody
+Group=nobody
+WorkingDirectory=/opt/doubao-translator-rust
+EnvironmentFile=/opt/doubao-translator-rust/.env
+ExecStart=/opt/doubao-translator-rust/translator
+Restart=always
+RestartSec=3
+StandardOutput=null
+StandardError=null
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+
+[Install]
+WantedBy=multi-user.target
