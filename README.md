@@ -1,5 +1,9 @@
 # Doubao Translator (Rust)
 
+![Rust](https://img.shields.io/badge/rust-1.70%2B-dea584.svg)
+![Axum](https://img.shields.io/badge/axum-0.7-0f6e66.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
 极简、高性能的网页翻译器：Rust 后端 + 原生前端，专注速度和低内存占用。对接火山引擎豆包翻译 API（ARK）。
 
 ## Features
