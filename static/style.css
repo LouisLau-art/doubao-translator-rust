@@ -104,8 +104,8 @@ input[type="range"] {
   display: flex;
   gap: 0;
   align-items: stretch;
-  min-height: 60vh;
-  flex: 1;
+  height: calc(100vh - 260px);
+  min-height: 420px;
   --input-width: 50%;
 }
 
@@ -123,6 +123,7 @@ input[type="range"] {
   background: transparent;
   border-left: 1px solid var(--border);
   border-right: 1px solid var(--border);
+  height: 100%;
 }
 
 .panels.dragging .divider {
