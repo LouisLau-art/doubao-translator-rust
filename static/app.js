@@ -318,6 +318,6 @@ updateFontSize();
 updateCharCount();
 initDivider();
 if (els.historyPanel) {
-  els.historyPanel.classList.add("open");
+  if (els.toggleHistory) els.toggleHistory.textContent = "展开";
 }
 loadLanguages().then(renderHistory);
