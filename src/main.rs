@@ -134,6 +134,8 @@ async fn main() {
         limiter,
     };
 
+    let addr = format!("0.0.0.0:{}", state.config.port);
+
     let static_service = ServeDir::new("static");
     let libs_service = ServeDir::new("static/libs");
 
@@ -146,8 +148,6 @@ async fn main() {
         .route("/", get_service(ServeFile::new("static/index.html")))
         .layer(CorsLayer::permissive())
         .with_state(state);
-
-    let addr = format!("0.0.0.0:{}", state.config.port);
     println!("Server listening on {addr}");
 
     let listener = tokio::net::TcpListener::bind(&addr)

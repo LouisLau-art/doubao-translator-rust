@@ -4,6 +4,9 @@ set -euo pipefail
 SERVICE_NAME=doubao-translator
 INSTALL_DIR=/opt/doubao-translator-rust
 
+# Stop service if running to avoid busy binary
+sudo systemctl stop ${SERVICE_NAME}.service 2>/dev/null || true
+
 if [[ ! -f .env ]]; then
   echo "Missing .env. Copy .env.example to .env and fill ARK_API_KEY." >&2
   exit 1
@@ -11,6 +14,8 @@ fi
 
 sudo mkdir -p "$INSTALL_DIR"
 sudo cp target/release/translator "$INSTALL_DIR/translator"
+sudo rm -rf "$INSTALL_DIR/static"
+sudo cp -r static "$INSTALL_DIR/static"
 sudo cp .env "$INSTALL_DIR/.env"
 sudo chown root:nobody "$INSTALL_DIR/.env"
 sudo chmod 640 "$INSTALL_DIR/.env"
