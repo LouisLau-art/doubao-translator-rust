@@ -15,7 +15,6 @@
 
 body {
   margin: 0;
-  font-family: "Inter", "SF Pro Text", "Segoe UI", system-ui, sans-serif;
   background: radial-gradient(circle at top, #1f2430, #0d1117 60%);
   color: var(--text);
 }
@@ -157,7 +156,6 @@ textarea {
   outline: none;
   font-size: var(--font-size);
   line-height: 1.5;
-  font-family: sans-serif;
 }
 
 .result-area {
